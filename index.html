@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SnackXpress | Snacks saludables en 15 minutos</title>
+  <meta name="description" content="Microclases de snacks saludables en 15 minutos. Aprende rápido, come mejor." />
+
+  <!-- Tipografía (opcional). Si no quieres dependencias externas, elimina estas 3 líneas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0b1411;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.58);
+
+      --g1: #1ee3a2;
+      --g2: #22c55e;
+      --g3: #a7f3d0;
+      --line: rgba(255,255,255,.10);
+
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 1080px;
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 10%, rgba(34,197,94,.22), transparent 60%),
+        radial-gradient(900px 560px at 80% 30%, rgba(30,227,162,.18), transparent 58%),
+        linear-gradient(180deg, #07110d, #0b1411 55%, #08110d);
+      overflow-x:hidden;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .container{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
+
+    /* Navbar */
+    .nav{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: rgba(7,17,13,.55);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 700; letter-spacing: .2px;
+    }
+    .logo{
+      width: 34px; height: 34px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--g1), var(--g2));
+      box-shadow: 0 10px 30px rgba(34,197,94,.28);
+    }
+    .nav-links{
+      display:flex; align-items:center; gap: 18px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .nav-links a{ padding: 8px 10px; border-radius: 12px; }
+    .nav-links a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0px); }
+
+    .btn-primary{
+      border-color: rgba(34,197,94,.35);
+      background: linear-gradient(135deg, rgba(30,227,162,.18), rgba(34,197,94,.18));
+    }
+    .btn-primary:hover{
+      background: linear-gradient(135deg, rgba(30,227,162,.24), rgba(34,197,94,.24));
+    }
+    .btn-ghost{ background: rgba(255,255,255,.04); }
+
+    /* Hero */
+    .hero{ padding: 56px 0 10px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+    .badge{
+      display:inline-flex; align-items:center; gap: 10px;
+      border: 1px solid rgba(34,197,94,.25);
+      background: rgba(34,197,94,.10);
+      color: var(--g3);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .2px;
+    }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(30px, 3.6vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.6px;
+    }
+    .lead{
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+      margin: 0 0 18px;
+    }
+
+    .actions{
+      display:flex; flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    /* Cards */
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-card{
+      padding: 18px;
+      display:flex; flex-direction: column; gap: 14px;
+      position: relative;
+      overflow:hidden;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute; inset:-60px -80px auto auto;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle at 30% 30%, rgba(30,227,162,.35), transparent 60%),
+                  radial-gradient(circle at 70% 70%, rgba(34,197,94,.28), transparent 58%);
+      filter: blur(10px);
+      opacity: .9;
+      pointer-events:none;
+    }
+    .stat{
+      display:flex; align-items: baseline; justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .stat strong{ font-size: 22px; }
+    .stat span{ color: var(--muted); font-weight: 600; font-size: 13px; }
+
+    .grid3{
+      display:grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+    @media (max-width: 900px){ .grid3{ grid-template-columns: 1fr; } }
+
+    .mini{
+      padding: 14px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .mini h3{ margin: 0 0 6px; font-size: 14px; letter-spacing: .2px; }
+    .mini p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+    /* Sections */
+    section{ padding: 26px 0; }
+    .section-title{
+      display:flex; align-items: baseline; justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .section-title h2{ margin:0; font-size: 18px; letter-spacing: .2px; }
+    .section-title p{ margin:0; color: var(--muted2); font-size: 13px; }
+
+    .two-col{
+      display:grid; grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px){ .two-col{ grid-template-columns: 1fr; } }
+
+    .list{
+      margin: 0; padding-left: 16px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .pricing{ padding: 16px; display:flex; flex-direction: column; gap: 10px; }
+    .price{ display:flex; align-items: baseline; gap: 10px; }
+    .price strong{ font-size: 28px; }
+    .price span{ color: var(--muted); font-weight: 600; }
+
+    .divider{ height: 1px; background: var(--line); margin: 10px 0; }
+
+    footer{
+      padding: 28px 0 36px;
+      border-top: 1px solid var(--line);
+      color: var(--muted2);
+      font-size: 13px;
+    }
+    .foot{ display:flex; flex-wrap: wrap; align-items:center; justify-content: space-between; gap: 10px; }
+
+    :focus-visible{
+      outline: 2px solid rgba(34,197,94,.75);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>SnackXpress</div>
+      </div>
+
+      <nav class="nav-links" aria-label="Navegación">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#planes">Planes</a>
+      </nav>
+
+      <button class="btn btn-primary" id="ctaTop" type="button">
+        Responder formulario <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="badge">Microclases • Snacks saludables • 15 minutos</div>
+          <h1>Come mejor sin complicarte: snacks saludables en 15 minutos.</h1>
+          <p class="lead">
+            Aprende recetas simples, rápidas y ricas para tu día a día.
+            Ideal si tienes poco tiempo y quieres opciones más saludables.
+          </p>
+
+          <div class="actions">
+            <button class="btn btn-primary" id="ctaHero" type="button">
+              Quiero participar <span aria-hidden="true">→</span>
+            </button>
+            <a class="btn btn-ghost" href="#como-funciona">Ver cómo funciona</a>
+          </div>
+
+          <div class="grid3" id="beneficios">
+            <div class="mini">
+              <h3>Rápido</h3>
+              <p>Recetas listas en 15 minutos, sin pasos eternos.</p>
+            </div>
+            <div class="mini">
+              <h3>Saludable</h3>
+              <p>Alternativas equilibradas para bajar ultraprocesados.</p>
+            </div>
+            <div class="mini">
+              <h3>Práctico</h3>
+              <p>Ingredientes simples y métodos fáciles de repetir.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card hero-card" aria-label="Resumen del servicio">
+          <div class="stat">
+            <div>
+              <strong>15 min</strong><br />
+              <span>Por clase</span>
+            </div>
+            <div style="text-align:right">
+              <strong>Online</strong><br />
+              <span>Donde estés</span>
+            </div>
+          </div>
+
+          <div class="stat">
+            <div>
+              <strong>Gratis</strong><br />
+              <span>Clase de muestra</span>
+            </div>
+            <div style="text-align:right">
+              <strong>USD 9</strong><br />
+              <span>Premium mensual</span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div style="color: var(--muted); font-size: 14px; line-height: 1.6;">
+            <strong style="color: var(--text);">¿Qué incluye?</strong><br/>
+            Recetas rápidas, guía paso a paso y tips prácticos.
+          </div>
+
+          <button class="btn btn-primary" id="ctaCard" type="button" style="margin-top:6px;">
+            Responder formulario <span aria-hidden="true">→</span>
+          </button>
+          <div style="color: var(--muted2); font-size: 13px; margin-top:2px;">
+            Toma menos de un minuto.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="como-funciona">
+      <div class="section-title">
+        <h2>Cómo funciona</h2>
+        <p>Simple y directo.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="card" style="padding:16px;">
+          <h3 style="margin:0 0 8px; font-size:14px;">Paso a paso</h3>
+          <ol class="list">
+            <li>Respondes una pregunta y dejas tu email.</li>
+            <li>Recibes acceso a una clase de muestra.</li>
+            <li>Si te gusta, activas Premium cuando quieras.</li>
+          </ol>
+        </div>
+
+        <div class="card" style="padding:16px;">
+          <h3 style="margin:0 0 8px; font-size:14px;">Para quién es</h3>
+          <ul class="list">
+            <li>Si estás ocupado y terminas picando cualquier cosa.</li>
+            <li>Si quieres comer mejor sin cocinar “en serio”.</li>
+            <li>Si buscas ideas rápidas y repetibles.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="planes">
+      <div class="section-title">
+        <h2>Planes</h2>
+        <p>Prueba gratis y decide con calma.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="card pricing">
+          <h3 style="margin:0; font-size:14px;">Gratis</h3>
+          <div class="price"><strong>USD 0</strong><span>/mes</span></div>
+          <ul class="list">
+            <li>Acceso a una clase de muestra.</li>
+            <li>Ideas rápidas para empezar hoy.</li>
+          </ul>
+          <div class="divider"></div>
+          <button class="btn btn-ghost" id="ctaFree" type="button">Quiero la muestra</button>
+        </div>
+
+        <div class="card pricing" style="border-color: rgba(34,197,94,.28); background: rgba(34,197,94,.06);">
+          <h3 style="margin:0; font-size:14px;">Premium</h3>
+          <div class="price"><strong>USD 9</strong><span>/mes</span></div>
+          <ul class="list">
+            <li>Microclases semanales de 15 minutos.</li>
+            <li>Recetas por objetivos y preferencias.</li>
+            <li>Acceso prioritario a contenido nuevo.</li>
+          </ul>
+          <div class="divider"></div>
+          <button class="btn btn-primary" id="ctaPremium" type="button">Comenzar Premium</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card" style="padding:16px;">
+        <div class="section-title" style="margin-bottom:6px;">
+          <h2 style="font-size:16px;">¿Te sumas?</h2>
+          <p>Responde el formulario y recibe la clase.</p>
+        </div>
+        <button class="btn btn-primary" id="ctaBottom" type="button">
+          Responder formulario <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container foot">
+        <div>© <span id="year"></span> SnackXpress</div>
+        <div>Hecho para personas con poco tiempo.</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Pega aquí tu URL REAL del Google Form:
+    const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdR9RXNg5mbATMyW4KdruVePphTIN5AlhZbJ0kt5laaU-7Ydw/viewform?usp=dialog";
+
+    const openForm = () => window.open(FORM_URL, "_blank", "noopener,noreferrer");
+
+    ["ctaTop","ctaHero","ctaCard","ctaFree","ctaPremium","ctaBottom"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener("click", openForm);
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
