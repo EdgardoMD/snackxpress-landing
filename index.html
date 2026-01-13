@@ -266,6 +266,108 @@
       outline-offset: 3px;
       border-radius: 12px;
     }
+
+    /* =========================
+   MOBILE-FIRST IMPROVEMENTS
+   (No cambia contenido/HTML)
+   ========================= */
+
+    /* 1) Base: mejor legibilidad y espacios en pantallas chicas */
+    .container{
+      width: min(var(--max), calc(100% - 28px)); /* antes 40px */
+    }
+
+    .hero{
+      padding: 28px 0 8px; /* menos “aire” en mobile */
+    }
+
+    .lead{
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* 2) Botones: más grandes y “thumb-friendly” */
+    .btn{
+      min-height: 44px;              /* estándar accesibilidad */
+      padding: 12px 14px;
+      border-radius: 16px;
+    }
+
+    .actions{
+      gap: 10px;
+    }
+
+    .actions .btn,
+    .actions a.btn{
+    flex: 1 1 auto;
+    }
+
+    /* En mobile, el CTA principal ocupa ancho completo */
+    @media (max-width: 560px){
+      .actions{
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .actions .btn,
+      .actions a.btn{
+        width: 100%;
+      }
+    }
+
+    /* 3) Hero layout: apila columnas antes y reduce gap */
+    .hero-grid{
+      gap: 14px;
+    }
+
+    /* 4) Tarjetas: paddings más cómodos en mobile */
+    .hero-card,
+    .card{
+      border-radius: 16px;
+    }
+
+    .hero-card{
+      padding: 14px;
+    }
+
+    .mini{
+      padding: 14px;
+    }
+
+    /* 5) Grids: pasan a 1 columna más temprano */
+    @media (max-width: 900px){
+      .grid3{ grid-template-columns: 1fr; }
+      .two-col{ grid-template-columns: 1fr; }
+    }
+
+    /* 6) Navbar: evita saturación, permite “wrap” */
+    .nav-inner{
+      flex-wrap: wrap;
+    }
+
+    /* Si el menú estorba en móvil, se oculta (sin cambiar contenido) */
+    @media (max-width: 700px){
+      .nav-links{
+        display: none; /* mantiene header limpio en mobile */
+      }
+    }
+
+    /* 7) Tipografía del título: mejor escala en mobile */
+    h1{
+      letter-spacing: -0.4px;
+    }
+
+    /* 8) Botón primario: destaca bien también en mobile */
+    .btn-primary{
+      box-shadow:
+      0 14px 34px rgba(34,197,94,.45),
+      inset 0 0 0 1px rgba(255,255,255,.22);
+    }
+
+/* 9) Mejor “tap highlight” en móviles */
+    button, a{
+      -webkit-tap-highlight-color: rgba(34,197,94,.18);
+    }
+
   </style>
 </head>
 
